@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require 'rubygems'
 require 'sinatra'
 
@@ -15,7 +16,7 @@ configure do
 		:admin_password => 'changeme',
 		:admin_cookie_key => 'scanty_admin',
 		:admin_cookie_value => '51d6d976913ace58',
-		:disqus_shortname => nil
+		:disqus_shortname => 'thenocturneofthemind'
 	)
 end
 
@@ -28,24 +29,14 @@ end
 
 $LOAD_PATH.unshift(File.dirname(__FILE__) + '/lib')
 require 'post'
+require 'helpers'
 
-helpers do
-	def admin?
-		request.cookies[Blog.admin_cookie_key] == Blog.admin_cookie_value
-	end
-
-	def auth
-		stop [ 401, 'Not authorized' ] unless admin?
-	end
-end
-
-layout 'layout'
 
 ### Public
 
 get '/' do
 	posts = Post.reverse_order(:created_at).limit(10)
-	erb :index, :locals => { :posts => posts }, :layout => false
+	erb :index, :locals => { :posts => posts }
 end
 
 get '/past/:year/:month/:day/:slug/' do
@@ -101,14 +92,18 @@ end
 post '/posts' do
 	auth
 	post = Post.new :title => params[:title], :tags => params[:tags], :body => params[:body], :created_at => Time.now, :slug => Post.make_slug(params[:title])
-	post.save
-	redirect post.url
+	if post.valid? and !post.title.empty?
+    post.save
+	  redirect post.url
+  else
+    halt [404, "Empty Title!"]
+  end
 end
 
 get '/past/:year/:month/:day/:slug/edit' do
 	auth
 	post = Post.filter(:slug => params[:slug]).first
-	stop [ 404, "Page not found" ] unless post
+	halt [ 404, "Page not found" ] unless post
 	erb :edit, :locals => { :post => post, :url => post.url }
 end
 

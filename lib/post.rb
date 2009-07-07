@@ -7,7 +7,7 @@ class Post < Sequel::Model
 	unless table_exists?
 		set_schema do
 			primary_key :id
-			text :title
+			text :title, :null => false
 			text :body
 			text :slug
 			text :tags
