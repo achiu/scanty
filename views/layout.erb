@@ -2,24 +2,43 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<title><%= @title || Blog.title %></title>
-	<link href="/css/main.css" rel="stylesheet" type="text/css" />
+	<link href="/css/blueprint/screen.css" rel="stylesheet" type="text/css" media="screen, projection" />
+  <link href="/css/blueprint/print.css" type="text/css" media="print" />
+  <link href="/css/meow.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<div id="header">
-	<div id="logo2">
+<div id="header" class="container">
+	<div id="logo" class="span-13 append-1">
 		<h1><a href="/"><%= Blog.title %></a></h1>
 		<p>by <%= Blog.author %></p>
 	</div>
+  <div id="ad" class="span-10 last">
+    <!-- Ad Goes Here -->
+  </div>
 </div>
 
-<div id="content">
-	<%= yield %>
+<div id="content" class="container">
+  <div id="nav" class="span 24 last">
+    <ul>
+      <li><%= link_to "Home", "#" %></li>
+      <li><%= link_to "About","#" %></li>
+    </ul>
+  </div>
+  <div id="main" class="span-16 append-2">
+	  <%= yield %>
+  </div>
+  <div id="side_ad" class="span-5 append 1">
+  </div>
 </div>
 
-<div id="footer">
-	<p id="legal">
-	Content by <%= Blog.author %> | 
-	Design adapted from <a href="http://www.freecsstemplates.org/preview/replenish">Replenish</a>
+<div id="footer" class="container">
+	<div id="legal" class="span-11 append1">
+  <p id="legal">
+	  Content by <%= Blog.author %> | 
+	  Design adapted from <a href="http://www.freecsstemplates.org/preview/replenish">Replenish</a>
+  </div>
+  <div id="extra" class="span-11 last">
+  </div>
 </div>
 </body>
 </html>
