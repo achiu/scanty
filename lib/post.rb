@@ -1,9 +1,9 @@
-require File.dirname(__FILE__) + '/../vendor/maruku/maruku'
+# require File.dirname(__FILE__) + '/../vendor/maruku/maruku'
+# 
+# $LOAD_PATH.unshift File.dirname(__FILE__) + '/../vendor/syntax'
+# require 'syntax/convertors/html'
 
-$LOAD_PATH.unshift File.dirname(__FILE__) + '/../vendor/syntax'
-require 'syntax/convertors/html'
-
-class Post < Sequel::Model
+class Post < Sequel::Model(:posts)
 	unless table_exists?
 		set_schema do
 			primary_key :id

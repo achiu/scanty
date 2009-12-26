@@ -32,6 +32,12 @@ security purposes, change the admin password and the admin cookie key and
 value.  These last two can be set to any random value you like, just choose
 something other than the default.
 
+Scanty now uses gem bundle to load the appropriate gems into vendor/gems.
+
+run gem bundle at the root of the application
+
+  $ gem bundle
+
 Then run the server:
 
   $ ruby main.rb

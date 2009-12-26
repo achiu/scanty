@@ -1,11 +1,7 @@
 #!/usr/bin/env ruby
-require 'rubygems'
-require 'sinatra'
-
-$LOAD_PATH.unshift File.dirname(__FILE__) + '/vendor/sequel'
-require 'sequel'
 
 configure do
+  Sequel::Model.plugin(:schema)
 	Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://blog.db')
 
 	require 'ostruct'
