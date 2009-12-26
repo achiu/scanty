@@ -40,9 +40,9 @@ run gem bundle at the root of the application
 
 Then run the server:
 
-  $ ruby main.rb
+  $ thin start -R config.ru
 
-And visit: http://localhost:4567
+And visit: http://localhost:3000
 
 Log in with the password you selected, then click New Post.  The rest should be
 self-explanatory.
